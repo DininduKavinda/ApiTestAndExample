@@ -10,92 +10,180 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
-<body class="bg-gray-900 text-white">
-    <div class="flex">
+<body>
+    <div class="">
         @include('components.navbar')
-        <div class="flex-1 p-6">
-            @include('components.sidebar')
+        @include('components.sidebar')
 
-            <h1 class="text-3xl text-center mb-8">Users</h1>
-
-            <div class="bg-gray-800 p-4 rounded-lg">
-                <div class="mb-4">
-                    <form method="get" class="grid grid-cols-1 md:grid-cols-3 gap-4"
-                        action="{{ route('user.search') }}">
+        <div class="p-4 sm:ml-64">
+            <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
+                <div class="relative  sm:rounded-lg">
+                    <form method="get" action="{{ route('user.search') }}"
+                        class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                         @csrf
                         <div>
-                            <label for="exampleInputEmail1" class="block text-gray-300">Email:</label>
-                            <input class="w-full p-2 rounded-md text-gray-700" name="email" value="">
+                            <button id="formButton" data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button">
+                                + Add New
+                            </button>
+
                         </div>
-                        <div>
-                            <label for="exampleInputEmail1" class="block text-gray-300">User Name:</label>
-                            <input class="w-full p-2 rounded-md text-gray-700" name="username" value="">
-                        </div>
-                        <div>
-                            <label for="exampleInputEmail1" class="block text-gray-300">First Name:</label>
-                            <input class="w-full p-2 rounded-md text-gray-700" name="firstname" value="">
-                        </div>
-                        <div class="md:col-span-2 flex items-center">
-                            <input type="checkbox" name="all" class="mr-2"> <label for="exampleInputEmail1"
-                                class="ml-2 text-gray-300">Get ALL</label>
-                        </div>
-                        <div>
-                            <button class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-md text-white"
+                        <div class="flex flex-wrap justify-end">
+                            <label for="table-search" class="sr-only">Search</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input type="text"
+                                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-l-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search by Email" name="email">
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input type="text"
+                                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300  w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search by UserName" name="username">
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input type="text"
+                                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-r-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search by First Name" name="firstname">
+                            </div>
+                            <button hidden class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-md text-white"
                                 type="submit">Search</button>
                         </div>
                     </form>
-                </div>
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <div class="w3-container">
-                        <button id="formButton" data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">
-                            + Add New
-                        </button>
-                        </br>
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">ID</th>
-                                    <th scope="col" class="px-6 py-3">Username</th>
-                                    <th scope="col" class="px-6 py-3">Full Name</th>
-                                    <th scope="col" class="px-6 py-3">Email</th>
-                                    <th scope="col" class="px-6 py-3">Action</th>
+                    <table class="w-full shadow-md text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+                            <th scope="col" class="p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-all-search" type="checkbox"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                </div>
+                            </th>
+
+                            <th scope="col" class="px-6 py-3">Username</th>
+                            <th scope="col" class="px-6 py-3">Full Name</th>
+                            <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data['users'] as $key => $dat)
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="w-4 p-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                        </div>
+                                    </td>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $dat['username'] }}
+                                    </th>
+
+                                    <td class="px-6 py-4">
+                                        {{ $dat['firstname'] }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $dat['email'] }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="javascript:void(0)" data-url="{{ route('user.delete', $dat['id']) }}"
+                                            id="delete-user"
+                                            class="px-2 py-1 bg-red-500 hover:bg-red-600 rounded-md text-white ml-2">Delete</a>
+                                        <a href="javascript:void(0)" data-url="{{ route('user.edit', $dat['id']) }}"
+                                            id="editButton" data-modal-toggle="crud-modal"
+                                            class="px-2 py-1 bg-yellow-500 hover:bg-ywllow-600 rounded-md text-white ml-2">Edit</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data['users'] as $key => $dat)
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td scope="col" scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $dat['id'] }}</td>
-                                        <td scope="col" class="px-6 py-3">{{ $dat['username'] }}</td>
-                                        <td scope="col" class="px-6 py-3">{{ $dat['firstname'] }}
-                                            {{ $dat['lastname'] }}</td>
-                                        <td scope="col" class="px-6 py-3">{{ $dat['email'] }}</td>
-                                        <td scope="col" class="px-6 py-3">
-                                            <a href="javascript:void(0)"
-                                                data-url="{{ route('user.delete', $dat['id']) }}" id="delete-user"
-                                                class="px-2 py-1 bg-red-500 hover:bg-red-600 rounded-md text-white ml-2">Delete</a>
-                                            <a href="javascript:void(0)" data-url="{{ route('user.edit', $dat['id']) }}"
-                                                id="editButton" data-modal-toggle="crud-modal"
-                                                class="px-2 py-1 bg-yellow-500 hover:bg-ywllow-600 rounded-md text-white ml-2">Edit</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div class="mt-8">
-                        @include('components.userModel.modal')
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+
+
+                {{-- <h1 class="text-3xl text-center mb-8">Users</h1>
+                <table class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <div
+                        class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                        <form method="get" class="flex space-x-4" action="{{ route('user.search') }}">
+                            @csrf
+                            <input class="p-2 w-1/4 rounded-md text-gray-700 border border-gray-300"
+                                placeholder="Search by Email" name="email" value="">
+                            <input class="p-2 w-1/4 rounded-md text-gray-700 border border-gray-300"
+                                placeholder="Search by UserName" name="username" value="">
+                            <input class="p-2 w-1/4 rounded-md text-gray-700 border border-gray-300"
+                                placeholder="Search by First Name" name="firstname" value="">
+                            <button hidden class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-md text-white"
+                                type="submit">Search</button>
+                        </form>
+                    </div>
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">ID</th>
+                            <th scope="col" class="px-6 py-3">Username</th>
+                            <th scope="col" class="px-6 py-3">Full Name</th>
+                            <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data['users'] as $key => $dat)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td scope="col" scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    </td>
+                                <td scope="col" class="px-6 py-3"></td>
+                                <td scope="col" class="px-6 py-3">
+                                    {{ $dat['lastname'] }}</td>
+                                <td scope="col" class="px-6 py-3"></td>
+                                <td scope="col" class="px-6 py-3">
+
+                                </td>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table> --}}
+
             </div>
         </div>
+        <div class="mt-8">
+            @include('components.userModel.modal')
+        </div>
+
     </div>
+    @include('components.navbot')
     <script type="text/javascript">
         $(document).ready(function() {
             $.ajaxSetup({
